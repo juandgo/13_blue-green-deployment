@@ -98,7 +98,7 @@ resource "aws_lb_listener" "http" {
 # ------------------------------------------------------------------------------
 
 resource "aws_launch_template" "blue" {
-  name_prefix   = "${var.prefix}-blue-template-"
+  name   = "${var.prefix}-blue-template-"
   image_id      = data.aws_ami.amazon_linux_2.id
   instance_type = var.instance_type
 
@@ -130,7 +130,7 @@ resource "aws_launch_template" "blue" {
 }
 
 resource "aws_launch_template" "green" {
-  name_prefix   = "${var.prefix}-green-template-"
+  name   = "${var.prefix}-green-template-"
   image_id      = data.aws_ami.amazon_linux_2.id
   instance_type = var.instance_type
 
@@ -184,6 +184,8 @@ resource "aws_autoscaling_group" "blue" {
     value               = "${var.prefix}-blue-asg-instance"
     propagate_at_launch = true
   }
+
+  depends_on = [aws_lb_listener.http]
 }
 
 resource "aws_autoscaling_group" "green" {
@@ -205,4 +207,6 @@ resource "aws_autoscaling_group" "green" {
     value               = "${var.prefix}-green-asg-instance"
     propagate_at_launch = true
   }
+
+  depends_on = [aws_lb_listener.http]
 }
