@@ -98,7 +98,7 @@ resource "aws_lb_listener" "http" {
 # ------------------------------------------------------------------------------
 
 resource "aws_launch_template" "blue" {
-  name   = "${var.prefix}-blue-template-"
+  name          = "${var.prefix}-blue-template-"
   image_id      = data.aws_ami.amazon_linux_2.id
   instance_type = var.instance_type
 
@@ -130,7 +130,7 @@ resource "aws_launch_template" "blue" {
 }
 
 resource "aws_launch_template" "green" {
-  name   = "${var.prefix}-green-template-"
+  name          = "${var.prefix}-green-template-"
   image_id      = data.aws_ami.amazon_linux_2.id
   instance_type = var.instance_type
 
